@@ -8,6 +8,10 @@ function registerServerCallback(...)
 	end
 end
 
+RegisterNetEvent('aty_pausemenu:dropPlayer', function(data)
+    DropPlayer(source, "Disconnected")
+end)
+
 registerServerCallback("aty_pausemenu:getPlayerData", function(src, cb)
     local xPlayer = Config.Framework == "esx" and Framework.GetPlayerFromId(src) or Framework.Functions.GetPlayer(src)
     playerId = src
@@ -26,9 +30,10 @@ registerServerCallback("aty_pausemenu:getPlayerData", function(src, cb)
         cash = xPlayer.PlayerData.money.cash
         bank = xPlayer.PlayerData.money.bank
         job = xPlayer.PlayerData.job.label
-        name = xPlayer.PlayerData.firstname.." "..xPlayer.PlayerData.lastname
+        name = xPlayer.PlayerData.charinfo.firstname.." "..xPlayer.PlayerData.charinfo.lastname
         grade = xPlayer.PlayerData.job.grade.name
-        gender = xPlayer.PlayerData.gender
+        gender = xPlayer.PlayerData.charinfo.gender
+        if gender == 1 then gender = "Female" else gender = "Male" end
     end
 
     cb({id = playerId, players = playerCount, maxPlayers = maxPlayers, bank = bank, wallet = cash, name = name, gender = gender, job = job, grade = grade})
