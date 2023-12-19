@@ -13,7 +13,19 @@ RegisterNUICallback("event", function(eType)
         ActivateFrontendMenu(GetHashKey('FE_MENU_VERSION_LANDING_MENU'),1,-1) 
         SetNuiFocus(false, false)
     elseif eType == "map" then
-        ActivateFrontendMenu(GetHashKey('FE_MENU_VERSION_MP_PAUSE'),1,-1) 
+        CreateThread(function()
+            ActivateFrontendMenu(GetHashKey('FE_MENU_VERSION_MP_PAUSE'), 0, -1)
+            Wait(100)
+            PauseMenuceptionGoDeeper(0)
+            while true do
+                Wait(10)
+                if IsControlJustPressed(0, 200) then
+                    SetFrontendActive(0)
+                    Wait(10)
+                    break
+                end
+            end
+        end)
         SetNuiFocus(false, false)
     elseif eType == "resume" then
         SetNuiFocus(false, false)

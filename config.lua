@@ -1,5 +1,5 @@
 Config = {
-    Framework = "esx",
+    Framework = "esx", -- esx / qb
 
     Tabs = {
         {
